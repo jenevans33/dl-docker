@@ -236,12 +236,17 @@ EXPOSE 6006 8888
 WORKDIR "/root"
 CMD ["/bin/bash"]
 
-# Install python-mnist
+# update OS
+RUN sudo apt-get update
+
+# Upgrade Python
+RUN pip install --upgrade python
+
+# Fix python-mnist path and update libraries
 RUN export PYTHONPATH=”.:/root/python-mnist/mnist:$PYTHONPATH” && \
 	pip2.7 install --upgrade beautifulsoup4 && \
 	pip2.7 install --upgrade html5lib && \
-	pip install - -upgrade matplotlib && \
+	pip install --upgrade matplotlib && \
 	export DISPLAY=:0.0 && \
-	pip install - -user - -upgrade scikit-learn==0.19.1 && \
-	pip install - -upgrade pandas && \
-	sudo apt-get update
+	pip install --user --upgrade scikit-learn==0.19.1 && \
+	pip install --upgrade pandas
