@@ -237,15 +237,11 @@ WORKDIR "/root"
 CMD ["/bin/bash"]
 
 # Install python-mnist
-RUN sudo apt-get update %% \
-        git clone https://github.com/sorki/python-mnist && \
-        cd python-mnist && \
-	./get_data.sh && \
-	python setup.py install && \
-	export PYTHONPATH=”.:/root/python-mnist/mnist:$PYTHONPATH” && \
+RUN export PYTHONPATH=”.:/root/python-mnist/mnist:$PYTHONPATH” && \
 	pip2.7 install --upgrade beautifulsoup4 && \
 	pip2.7 install --upgrade html5lib && \
 	pip install - -upgrade matplotlib && \
 	export DISPLAY=:0.0 && \
 	pip install - -user - -upgrade scikit-learn==0.19.1 && \
-	pip install - -upgrade pandas
+	pip install - -upgrade pandas && \
+	sudo apt-get update
